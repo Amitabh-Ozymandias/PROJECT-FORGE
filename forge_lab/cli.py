@@ -33,7 +33,7 @@ def _summary(run: dict) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="FORGE digital engineering lab")
+    parser = argparse.ArgumentParser(description="HEPHAESTUS digital engineering lab")
     commands = parser.add_subparsers(dest="command", required=True)
     for command in ("simulate", "improve"):
         subparser = commands.add_parser(command)

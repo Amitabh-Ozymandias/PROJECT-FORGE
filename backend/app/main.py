@@ -15,14 +15,14 @@ from .schemas import GeometryPreview, ProjectCreate, ProjectDocument, ProjectSum
 
 
 def project_root() -> Path:
-    configured = os.environ.get("FORGE_PROJECT_ROOT")
+    configured = os.environ.get("HEPHAESTUS_PROJECT_ROOT")
     return Path(configured) if configured else Path.cwd() / "projects"
 
 
 store = ProjectStore(project_root())
 geometry = CadQueryGeometryService()
 solver = CantileverBeamSolver()
-app = FastAPI(title="FORGE Local Engineering API", version="0.1.0")
+app = FastAPI(title="HEPHAESTUS Local Engineering API", version="0.1.0")
 app.add_middleware(
     CORSMiddleware,
     # "null" is the origin used by Electron's packaged file renderer. The API is

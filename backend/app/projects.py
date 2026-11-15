@@ -38,7 +38,7 @@ def default_design(design_id: str) -> dict:
 
 
 class ProjectStore:
-    """Local, human-readable .forge project documents; no cloud service required."""
+    """Local, human-readable .hephaestus project documents; no cloud service required."""
 
     def __init__(self, root: Path) -> None:
         self.root = root
@@ -46,7 +46,7 @@ class ProjectStore:
 
     def list(self) -> list[ProjectSummary]:
         projects: list[ProjectSummary] = []
-        for manifest in self.root.glob("*/project.forge.json"):
+        for manifest in self.root.glob("*/project.hephaestus.json"):
             payload = self._read(manifest)
             projects.append(ProjectSummary(**{key: payload[key] for key in ProjectSummary.model_fields}))
         return sorted(projects, key=lambda item: item.updated_at, reverse=True)
@@ -90,7 +90,7 @@ class ProjectStore:
         return path
 
     def _manifest_path(self, project_id: str) -> Path:
-        return self.root / project_id / "project.forge.json"
+        return self.root / project_id / "project.hephaestus.json"
 
     @staticmethod
     def _read(path: Path) -> dict:

@@ -23,20 +23,20 @@ async function waitForBackend() {
   while (Date.now() < deadline) {
     try { await requestHealth(); return; } catch { await new Promise((resolve) => setTimeout(resolve, 250)); }
   }
-  throw new Error("FORGE local backend did not become ready within 15 seconds.");
+  throw new Error("HEPHAESTUS local backend did not become ready within 15 seconds.");
 }
 
 function startBackend() {
   const developmentPython = path.join(repositoryRoot, ".venv", "Scripts", "python.exe");
-  const python = process.env.FORGE_PYTHON || (isDevelopment && require("fs").existsSync(developmentPython) ? developmentPython : "python");
-  const projectRoot = path.join(app.getPath("documents"), "FORGE Projects");
+  const python = process.env.HEPHAESTUS_PYTHON || (isDevelopment && require("fs").existsSync(developmentPython) ? developmentPython : "python");
+  const projectRoot = path.join(app.getPath("documents"), "HEPHAESTUS Projects");
   backend = spawn(python, ["-m", "uvicorn", "backend.app.main:app", "--host", "127.0.0.1", "--port", "8000"], {
     cwd: repositoryRoot,
-    env: { ...process.env, FORGE_PROJECT_ROOT: projectRoot },
+    env: { ...process.env, HEPHAESTUS_PROJECT_ROOT: projectRoot },
     windowsHide: true,
     stdio: "pipe",
   });
-  backend.stderr.on("data", (data) => console.error(`[FORGE API] ${data}`));
+  backend.stderr.on("data", (data) => console.error(`[HEPHAESTUS API] ${data}`));
 }
 
 async function createWindow() {

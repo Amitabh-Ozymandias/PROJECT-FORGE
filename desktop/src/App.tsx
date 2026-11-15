@@ -42,7 +42,7 @@ export function App() {
   };
 
   return <main className="app-shell">
-    <header><div><span className="eyebrow">DIGITAL ENGINEERING LABORATORY</span><h1>FORGE</h1></div><p className="status"><i />{status}</p></header>
+    <header><div><span className="eyebrow">DIGITAL ENGINEERING LABORATORY</span><h1>HEPHAESTUS</h1></div><p className="status"><i />{status}</p></header>
     <section className="workspace">
       <aside className="panel left-panel">
         <h2>{project?.name ?? "Loading project"}</h2><p className="muted">Parametric cantilever · SI engineering model</p>

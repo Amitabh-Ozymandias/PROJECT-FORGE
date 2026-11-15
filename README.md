@@ -1,6 +1,6 @@
-# FORGE — Digital Engineering Laboratory
+# HEPHAESTUS — Digital Engineering Laboratory
 
-FORGE starts with a deliberately small, auditable engineering loop:
+HEPHAESTUS starts with a deliberately small, auditable engineering loop:
 
 1. describe a parametric part and its material, load, and constraints;
 2. run a deterministic structural simulation;
@@ -42,7 +42,7 @@ backend/   FastAPI project service and CadQuery geometry boundary
 forge_lab/ Deterministic engineering domain and current analytic solver
 ```
 
-The Electron renderer only calls the local FastAPI service. Project documents and analysis runs are human-readable JSON files under the user's `Documents/FORGE Projects` folder when launched from Electron.
+The Electron renderer only calls the local FastAPI service. Project documents and analysis runs are human-readable JSON files under the user's `Documents/HEPHAESTUS Projects` folder when launched from Electron.
 
 ### Development setup
 

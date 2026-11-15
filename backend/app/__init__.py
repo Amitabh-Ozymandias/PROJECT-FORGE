@@ -1,1 +1,1 @@
-"""FORGE local engineering service."""
+"""HEPHAESTUS local engineering service."""
