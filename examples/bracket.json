@@ -1,0 +1,27 @@
+{
+  "design_id": "cantilever-bracket-v1",
+  "part": {
+    "length_m": 0.18,
+    "width_m": 0.032,
+    "height_m": 0.012
+  },
+  "material": {
+    "name": "6061-T6 aluminium",
+    "youngs_modulus_pa": 68900000000,
+    "yield_strength_pa": 276000000,
+    "density_kg_m3": 2700
+  },
+  "load_case": {
+    "name": "rated end load",
+    "end_force_n": 850
+  },
+  "constraints": {
+    "minimum_factor_of_safety": 2.0,
+    "maximum_tip_deflection_m": 0.0015,
+    "minimum_width_m": 0.02,
+    "maximum_width_m": 0.08,
+    "minimum_height_m": 0.006,
+    "maximum_height_m": 0.05,
+    "manufacturing_increment_m": 0.001
+  }
+}
