@@ -31,3 +31,29 @@ See `examples/bracket.json`. Dimensions are metres, forces are newtons, moduli a
 - Add more load cases, fatigue/thermal analysis, materials and process constraints.
 - Persist runs in a database and expose a reviewable API/UI.
 - Let an LLM-driven planning layer select validated analysis tools while preserving deterministic execution and approval gates.
+
+## Week 1 desktop foundation
+
+The desktop application is organised as a local-first Windows architecture:
+
+```text
+desktop/   Electron shell + React/TypeScript workspace + Three.js viewport
+backend/   FastAPI project service and CadQuery geometry boundary
+forge_lab/ Deterministic engineering domain and current analytic solver
+```
+
+The Electron renderer only calls the local FastAPI service. Project documents and analysis runs are human-readable JSON files under the user's `Documents/FORGE Projects` folder when launched from Electron.
+
+### Development setup
+
+The current machine needs a Python environment with FastAPI and frontend packages:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python -m pip install -r backend\requirements.txt
+cd desktop
+npm install
+npm run dev
+```
+
+CadQuery, Gmsh, and CalculiX are intentionally capability-gated next: CadQuery should be installed in a supported Python 3.11/3.12 environment before geometry production moves beyond the current rectangular parametric primitive.

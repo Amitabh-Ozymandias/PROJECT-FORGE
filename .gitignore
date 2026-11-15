@@ -2,3 +2,8 @@ __pycache__/
 *.py[cod]
 runs/
 .venv/
+node_modules/
+dist/
+projects/
+backend/__pycache__/
+desktop/.vite/
