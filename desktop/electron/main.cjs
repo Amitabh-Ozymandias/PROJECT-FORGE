@@ -48,6 +48,7 @@ async function createWindow() {
     minWidth: 1000,
     minHeight: 700,
     backgroundColor: "#10141b",
+    icon: path.join(repositoryRoot, "desktop", "src", "assets", "hephaestus-hammer-anvil.png"),
     webPreferences: { preload: path.join(__dirname, "preload.cjs"), contextIsolation: true, nodeIntegration: false },
   });
   if (isDevelopment) await window.loadURL("http://127.0.0.1:5173");

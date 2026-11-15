@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { api } from "./api";
+import brandMark from "./assets/hephaestus-hammer-anvil.png";
 import type { Design, Geometry, Project, SimulationRun } from "./types";
 import { Viewport } from "./Viewport";
 
@@ -42,7 +43,7 @@ export function App() {
   };
 
   return <main className="app-shell">
-    <header><div><span className="eyebrow">DIGITAL ENGINEERING LABORATORY</span><h1>HEPHAESTUS</h1></div><p className="status"><i />{status}</p></header>
+    <header><div className="brand"><img src={brandMark} alt="HEPHAESTUS hammer and anvil" /><div><span className="eyebrow">DIGITAL ENGINEERING LABORATORY</span><h1>HEPHAESTUS</h1></div></div><p className="status"><i />{status}</p></header>
     <section className="workspace">
       <aside className="panel left-panel">
         <h2>{project?.name ?? "Loading project"}</h2><p className="muted">Parametric cantilever · SI engineering model</p>
