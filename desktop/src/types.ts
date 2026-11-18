@@ -9,3 +9,5 @@ export type Design = {
 export type Project = { project_id: string; name: string; created_at: string; updated_at: string; design: Design };
 export type Geometry = { generator: string; vertices: number[][]; triangles: number[]; dimensions_m: Record<string, number> };
 export type SimulationRun = { result: { maximum_bending_stress_pa: number; tip_deflection_m: number; factor_of_safety: number; mass_kg: number; passes: boolean } };
+export type ApiHealth = { status: string; project_root: string; capabilities: { cadquery: boolean; gmsh: boolean; calculix: boolean } };
+
