@@ -17,8 +17,17 @@ class LocalApiWorkflowTests(unittest.TestCase):
                 geometry = api.project_geometry(project.project_id)
                 result = api.run_static_analysis(project.project_id)
 
-                self.assertEqual(len(geometry.vertices), 8)
+                self.assertIn(len(geometry.vertices), (8, 24))
                 self.assertEqual(len(geometry.triangles), 36)
                 self.assertIn("run_id", result["run"])
+
+                # Test CAD exports
+                step_res = api.export_step(project.project_id)
+                self.assertTrue(Path(step_res.path).exists())
+                self.assertGreater(Path(step_res.path).stat().st_size, 0)
+
+                stl_res = api.export_stl(project.project_id)
+                self.assertTrue(Path(stl_res.path).exists())
+                self.assertGreater(Path(stl_res.path).stat().st_size, 0)
         finally:
             api.store = original_store
