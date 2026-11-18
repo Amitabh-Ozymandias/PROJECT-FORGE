@@ -57,7 +57,22 @@ export function App() {
         <h3>Load case</h3><p>{project?.design.load_case.name}<strong>{project?.design.load_case.end_force_n} N</strong></p>
         <h3>Material</h3><p>{project?.design.material.name}</p>
       </aside>
-      <section className="view-panel"><Viewport geometry={geometry} /><div className="view-toolbar"><span>{geometry?.generator ?? "—"}</span><span>{geometry ? `${millimetres(geometry.dimensions_m.length)} × ${millimetres(geometry.dimensions_m.width)} × ${millimetres(geometry.dimensions_m.height)} mm` : ""}</span></div></section>
+      <section className="view-panel">
+        <Viewport geometry={geometry} />
+        <div className="view-toolbar">
+          <span className="cad-badge">
+            <span className={`kernel-dot ${geometry?.generator === "cadquery" ? "active" : ""}`} />
+            {geometry?.generator === "cadquery" ? "CadQuery · OpenCASCADE" : geometry?.generator ?? "—"}
+          </span>
+          <span>{geometry ? `${millimetres(geometry.dimensions_m.length)} × ${millimetres(geometry.dimensions_m.width)} × ${millimetres(geometry.dimensions_m.height)} mm` : ""}</span>
+          {project && (
+            <div className="export-actions">
+              <a href={api.exportStepUrl(project.project_id)} download className="btn-link" title="Export ISO 10303 STEP CAD format">Export STEP</a>
+              <a href={api.exportStlUrl(project.project_id)} download className="btn-link" title="Export 3D printable STL mesh">Export STL</a>
+            </div>
+          )}
+        </div>
+      </section>
       <aside className="panel right-panel">
         <h2>Engineering run</h2><p className="muted">Static cantilever analysis</p><button className="primary" onClick={analyse} disabled={!project || busy}>Run analysis</button>
         {run ? <div className={`result ${run.result.passes ? "pass" : "fail"}`}><h3>{run.result.passes ? "Constraint pass" : "Constraint fail"}</h3><p>Stress <strong>{(run.result.maximum_bending_stress_pa / 1e6).toFixed(1)} MPa</strong></p><p>Deflection <strong>{millimetres(run.result.tip_deflection_m)} mm</strong></p><p>Safety factor <strong>{run.result.factor_of_safety.toFixed(2)}</strong></p><p>Mass <strong>{(run.result.mass_kg * 1000).toFixed(0)} g</strong></p></div> : <p className="empty">Run an analysis to create a traceable local result.</p>}
