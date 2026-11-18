@@ -5,6 +5,7 @@ from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 
 from forge_lab.model import Design
 from forge_lab.simulation import CantileverBeamSolver
@@ -91,3 +92,42 @@ def run_static_analysis(project_id: str) -> dict:
     run = solver.simulate(Design.from_dict(project.design)).to_dict()
     path = store.save_run(project_id, run)
     return {"run": run, "path": str(path)}
+
+
+@app.get("/api/projects/{project_id}/export/step")
+def export_step(project_id: str) -> FileResponse:
+    try:
+        project = store.get(project_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail="Project not found") from exc
+    export_dir = store.root / project_id / "exports"
+    step_path = export_dir / f"{project.name.replace(' ', '_').lower()}.step"
+    try:
+        geometry.export_step(Design.from_dict(project.design), step_path)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+    return FileResponse(
+        path=str(step_path),
+        filename=step_path.name,
+        media_type="application/step",
+    )
+
+
+@app.get("/api/projects/{project_id}/export/stl")
+def export_stl(project_id: str) -> FileResponse:
+    try:
+        project = store.get(project_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail="Project not found") from exc
+    export_dir = store.root / project_id / "exports"
+    stl_path = export_dir / f"{project.name.replace(' ', '_').lower()}.stl"
+    try:
+        geometry.export_stl(Design.from_dict(project.design), stl_path)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+    return FileResponse(
+        path=str(stl_path),
+        filename=stl_path.name,
+        media_type="model/stl",
+    )
+
