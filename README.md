@@ -56,4 +56,12 @@ npm install
 npm run dev
 ```
 
-CadQuery, Gmsh, and CalculiX are intentionally capability-gated next: CadQuery should be installed in a supported Python 3.11/3.12 environment before geometry production moves beyond the current rectangular parametric primitive.
+CadQuery and OpenCASCADE (OCP) are integrated in the project `.venv` (Python 3.12). Geometry production uses B-Rep parametric modeling, kernel-level tessellation for Three.js, and export to industry-standard ISO 10303 STEP and STL meshes.
+
+## 3D CAD & Viewport Controls
+
+- **Orbit Controls:** Left-click + drag to rotate 3D camera with inertia damping.
+- **Pan & Zoom:** Right-click + drag to pan, mouse scroll wheel to zoom.
+- **CAD Silhouette Edges:** Crisp wireframe feature highlighting on top of shaded PBR geometry.
+- **Exporting CAD:** Direct STEP and STL export from the API (`/api/projects/{id}/export/step` and `stl`) or desktop toolbar.
+
