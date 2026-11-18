@@ -15,4 +15,6 @@ export const api = {
   saveDesign: (id: string, design: Design) => request<Project>(`/projects/${id}`, { method: "PUT", body: JSON.stringify({ design }) }),
   geometry: (id: string) => request<Geometry>(`/projects/${id}/geometry`),
   runStatic: (id: string) => request<{ run: SimulationRun }>(`/projects/${id}/runs/static`, { method: "POST" }),
+  exportStepUrl: (id: string) => `${endpoint}/projects/${id}/export/step`,
+  exportStlUrl: (id: string) => `${endpoint}/projects/${id}/export/stl`,
 };
